@@ -7,7 +7,7 @@ import csv
 import pandas as pd
 
 #url = "http://www.eatsight.com/portal/searchDetail/result"
-result = '{'
+result = '{' # "data" :[
 for fudId in range(10051312,10051323):
 	print("----------------------------------------- <JSON> ---------------------------------------------------")
 	print("-------------------------------------- fudId : "+str(fudId)+"------------------------------------------------")
@@ -17,7 +17,7 @@ for fudId in range(10051312,10051323):
 			#'fudNm' : '비빙수'
 		}
 	}
-	headers = {'Content-Type': 'application/json; charset=utf-8'} #post 전송방식이기 때문에 header 필요
+	headers = {'Content-Type': 'application/json; charset=utf-8'} #post 전송방식
 
 	req = requests.post('http://www.eatsight.com/portal/searchDetail/result', data =json.dumps(data),headers=headers)
 
@@ -33,7 +33,7 @@ for fudId in range(10051312,10051323):
 	
 result = result + '}'
 with open("JsonTest.json", "w") as outfile: #json 파일로 저장
-		json.dump(result, outfile)
+		json.dump(result, outfile) # write로 해야 인코딩 맞음
 		
 print("----------------------------------------- <JSON END> ---------------------------------------------------\n")
 print("---------------------------------------- <DataFrame> ---------------------------------------------------")
@@ -43,13 +43,14 @@ print(df)
 print("-------------------------------------- <CSV> ------------------------------------------------")
 print(df.to_csv())
 
-df.to_csv("csvTest.csv", mode='w',sep=',',header = True, na_rep='NaN')
+df.to_csv("csvTest.csv", mode='w',sep=',',header = True, na_rep='NaN') 
+#서버담당이 csv만 넣어봤다니 변환은 하겠다만, 비추 전처리할게 너무 많고, 숫자도 지수형식으로 표현된다. 
 
 
 
 #----------------------------------------참고-----------------------------------------------------
 
-# - 크롤링
+# - post
 # 참고 : https://dgkim5360.tistory.com/entry/python-requests // POST, 헤더 추가
 # http://docs.python-requests.org/en/master/user/quickstart/
 # 선용이형 json을 받을 수 있도록 도와준 1등 공신 최고!
